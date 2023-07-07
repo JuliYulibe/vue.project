@@ -2,5 +2,7 @@
 </script>
 
 <template>
-  <div>Inordic Component</div>
+  <div>Inordic Component
+  Test</div>
+  
 </template>
