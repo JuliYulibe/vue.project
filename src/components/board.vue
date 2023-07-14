@@ -5,28 +5,85 @@
             return {
                 hello: "Привет",
                 wallpaper: [
-                'https://i.pinimg.com/originals/b3/cf/82/b3cf8221bf35baf3d4faa68473811fc9.jpg',
-                'https://www.passion.ru/thumb/1500x0/filters:quality(75):no_upscale()/imgs/2022/03/24/16/5323877/30c1e09df2ea3734f0635eb503b486865d338c36.jpg'
-                ]
+                "https://klevtsovaelena.github.io/wallpaper/img/Fire6.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Fire7.jpeg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Fire8.png",
+                "https://klevtsovaelena.github.io/wallpaper/img/Fire9.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Fire10.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Fire11.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Fire12.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower1.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower2.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower3.jpeg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower4.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower5.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower6.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower7.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower8.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower9.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower10.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower11.jpg",
+                "https://klevtsovaelena.github.io/wallpaper/img/Flower12.jpg",
+                ],
+                currentWallpaper: 0,
+                activeMenu: false,
             };
         
     } ,
-    props: ['test']
+    props: ['test'],
+    methods: {
+      changeBackground(number){
+        this.currentWallpaper=number;
+        //Принудительно закрыть Меню
+        this.activeMenu = false;
+      },
+      openCloseMenu(){
+        //alert('Сработала функция openCloseMenu')
+        //this.activeMenu = true;
+        //Проверить открыто или закрыто сейчас Меню
+        if  (this.activeMenu){
+        //Если переменная в значении true
+        this.activeMenu = false;
+        } else {
+          this.activeMenu = true;
+        }
+      }
+    }
+
     }
     
 </script>
 
 <template>
 <div>
-    {{hello}}
-    {{test}} 
-    <li v-for="item in wallpaper">
-        {{item}}
-         <img v-bind:src='item'>
-         
-    </li>
+    
+    <div class='board' :style="{ 'background-image': `url(${wallpaper[currentWallpaper]})`}" >
+      <button class='board__button-change-theme' @click='openCloseMenu'>
+        <img :src='wallpaper[currentWallpaper]' />Сменить фон
+      </button>
+
+    <div :class="[activeMenu ? 'board__theme-wrapper board__theme-wrapper--active' : 'board__theme-wrapper']">
+       <div id='wallpapers'>
+          <div
+          v-for="(item, index) in wallpaper"
+          class='wallpapers__item'
+          :key="index"
+          :style="{ 'background-image': `url(${item})`}"
+          @click='changeBackground(index)'
+      >
+       </div>
+    </div>
+
+      <div class='close-wallpapers' @click='openCloseMenu'>
+      {{'<'}}
+      </div>
+  
+
+   
+    </div>
    
 
+</div>
 </div>
 
 </template>
@@ -44,6 +101,7 @@
     background-color: rgba(255, 255, 255, 0.9);
   }
   .board{
+      height: 100%;
       display: flex;
       justify-content: center;
       position: absolute;
@@ -94,7 +152,7 @@
     display: flex;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
   }
   .board__button-change-theme img{
     max-width: 50px;
