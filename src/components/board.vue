@@ -27,11 +27,77 @@
                 ],
                 currentWallpaper: 0,
                 activeMenu: false,
+                list: [
+                  {
+                    id: '1',
+                    title: 'Купить доски',
+                  },
+                  {
+                    id:'2',
+                    title: 'Нанять строителей',
+                  },
+                  {
+                    id: '3',
+                    title: 'Заплатить за аренду',
+                  },
+                ],
+
+                inprogress: [
+                  {
+                    id: '4',
+                    title: 'Закупить инструменты'
+                  },
+                ],
+
+                done: [
+                  {
+                    id: '5',
+                    title: 'Рассчитать денежные средства'
+                  },
+                ],
             };
         
     } ,
     props: ['test'],
     methods: {
+      handlerDragend(event, type){
+       console.log('handlerDragend');
+       //console.log(event.target.getAttribute('id'));
+       //Получить элемент (колонку) на которую нужно переместить задачу
+       //elementsFromPoint - Функция из чистого JS, для получения его по координатам
+       let Element = document.elementsFromPoint(event.x, event.y)
+       console.log(element);
+       //Условие, при котором мы перехватываем, момент, 
+       //когда пользователь отпускает задачу в верхний белый блок с рукой
+       //Отпускаем элемент именно над блоком с классом drop-zone
+       if(Element.getAttribute('class')== 'drop-zone'){
+          console.log('Элемент опустился над drop-zone')
+          //Найти тот самый элемент, который я перетаскиваю
+          //1 - Из Ивента, получим идентификатор элемента
+          const id = event.target.getAttribute('id')
+          //2 - Найти элементы из конкретного массива
+          // 2.1 - Получить массив (list, inprogress или done) в переменную
+          let arrayFrom = this[type];
+          //2.2 - Найти в том массиве, задачу которую мы перетаскиваем
+          let element = arrayFrom.filter(el => el.id == id);
+          console.log('element', element)
+          // 2.3 - удалить элемент, из массива, из столбца которого мы перетаскиваем
+          //Получаем новый отфильтрованный массив, со всеми элементами, кромк того, что мы перетаскиваем
+          let filteredNewArray  = arrayFrom.filter(el => el.id !== id);
+          //Презаписываем массив из которого удалили элемент
+          this[type] = filteredNewArray
+          console.log('filteredNewArray', filteredNewArray)
+          //Получим имя массива, в который перемещаем задачу
+          let arrayTo  = Element\.getAttribute('name');
+          console.log('arrayTo', arrayTo)
+          //Получить массив в который мы хотим переместить элемент
+          unshift -элемент для добавления элемента в начало массива
+          this[arrayTo].unshift(element);
+
+          
+
+       }
+      },
       changeBackground(number){
         this.currentWallpaper=number;
         //Принудительно закрыть Меню
@@ -81,6 +147,104 @@
 
    
     </div>
+
+    <section class='board-content'>
+      <h2>
+        На складе
+      </h2>
+      <input
+        placeholder='Новый товар'
+        type='text'
+        class='new-todo-item'
+      >
+      <div
+        class='drop-zone'
+        name='list'
+      >
+        <img src='public/assets/cursor.png'>
+      </div>
+      <ul class='todo-list board__column'>
+        <li
+          class='todo-item shoping__item'
+          v-for="(item, index) in list"
+          :key="item.id"
+          draggable="true"
+          @dragend="handlerDragend($event, 'list')"
+          :id="item.id
+        >
+
+      {{ item.title }}
+        
+        </li>
+      </ul>
+
+    </section>
+   
+
+    <section class='board-content'>
+      <h2>
+        У курьера
+      </h2>
+      <input
+        placeholder='Новый товар'
+        type='text'
+        class='new-todo-item'
+      >
+      <div
+        class='drop-zone'
+        name='inprogress'
+      >
+        <img src='public/assets/cursor.png'>
+      </div>
+      <ul class='todo-list board__column'>
+        <li
+          class='todo-item shoping__item'
+          v-for="(item, index) in inprogress"
+          :key="item.id"
+          draggable="true"
+          @dragend="handlerDragend($event, 'inprogress')"
+          :id="item.id
+        >
+        
+          {{ item.title}}
+          
+        </li>
+      </ul>
+
+    </section>
+
+    <section class='board-content'>
+      <h2>
+        Доставлено
+      </h2>
+      <input
+        placeholder='Новый товар'
+        type='text'
+        class='new-todo-item'
+      >
+      <div
+        class='drop-zone'
+        name='done'
+      >
+        <img src='public/assets/cursor.png'>
+      </div>
+      <ul class='todo-list board__column'>
+        <li
+          class='todo-item shoping__item'
+          v-for="(item, index) in done"
+          :key="item.id"
+          draggable="true"
+          @dragend="handlerDragend($event, 'done')"
+          :id="item.id
+        >
+          
+        >
+          {{ item.title}}
+        </li>
+      </ul>
+
+    </section>
+   
    
 
 </div>
