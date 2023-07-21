@@ -167,13 +167,13 @@
             }
           },
           addTask(task, columnName){
-            Готовим объект с задачей
+           // Готовим объект с задачей
             const taskObject ={
                 id: Math.random(),
                 title: task
             }
             //Пушим в определенную колонку
-            this(columnMenu.push(task))
+            this[columnName].push(taskObject)
 
           }
         },
