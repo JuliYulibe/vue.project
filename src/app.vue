@@ -1,9 +1,36 @@
-<script setup>
+<script>
 import Board from './components/board.vue'
+import Login from './components/login.vue'
+
+export default {
+    name: "App",
+    data() {
+      return {
+        isAuth: false,
+        users: [
+          {
+            login: 'admin',
+            password: 'admin',
+            avatar: 'https://cdn-icons-png.flaticon.com/512/5556/5556468.png'
+          }
+        ]
+      }
+    },
+    methods: {
+      login(){
+        console.log('Авторизация');
+      }
+    },
+    components:{
+      Board,
+      Login
+    }
+}
 </script>
 
 <template>
-  <Board test='Тестовый входящий параметр' />
+  <Board test='Тестовый входящий параметр' v-if="isAuth"/>
+  <Login :handlerLogin='login' v-else/>
 </template>
 
 <style scoped>

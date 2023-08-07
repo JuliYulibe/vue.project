@@ -4,10 +4,10 @@
         'name': "Board",
         data() {
             return {
-              boards: [
+              boards: {
 
-              ],
-          wallpaper: [
+              },
+              wallpaper: [
                 "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite1.jpg",
                 "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite2.jpg",
                 "https://klevtsovaelena.github.io/wallpaper/img/BlackWhite3.jpg",
@@ -167,20 +167,19 @@
             }
           },
           addTask(task, columnName){
-           // Готовим объект с задачей
-            const taskObject ={
-                id: Math.random(),
-                title: task
+            //Готовим объект с задачей
+            const taskObject = {
+              id: Math.random(),
+              title: task
             }
             //Пушим в определенную колонку
             this[columnName].push(taskObject)
-
           }
         },
-     // Регистрируем внешний компонент внутри родительского
-      components: {
-        'board-column': BoardColumn
-      }
+        //Регистрируем внешний компонент внутри родительского
+        components: {
+            'board-column': BoardColumn
+        }
     }
 </script>
 
@@ -192,7 +191,7 @@
          <img :src='wallpaper[currentWallpaper]' />
          Сменить фон
       </button>
-    
+      
 
       <div :class="[activeMenu ? 'board__theme-wrapper board__theme-wrapper--active' : 'board__theme-wrapper']">
           <div id='wallpapers'>
@@ -209,15 +208,9 @@
               {{'<'}}
           </div>
       </div>
-      <board-column :addTask="addTask" :taskModel="newTask" title="На складе" :items="list" name="list" :handlerDragend='handlerDragend'></board-column>
-      <board-column :addTask="addTask" :taskModel="newTask" title="У курьера" :items="inprogress" name="inprogress" :handlerDragend='handlerDragend'></board-column>
-      <board-column :addTask="addTask" :taskModel="newTask" title="Длставлено" :items="done" name="done" :handlerDragend='handlerDragend'></board-column>
-
-      
-      
-
-      
-
+      <board-column :addTask="addTask" :taskModel="newTask" title='На складе' :items="list" name='list' :handlerDragend='handlerDragend'></board-column>
+      <board-column :addTask="addTask" :taskModel="newTask" title='У курьера' :items="inprogress" name='inprogress' :handlerDragend='handlerDragend'></board-column>
+      <board-column :addTask="addTask" :taskModel="newTask" title='Доставлено' :items="done" name='done' :handlerDragend='handlerDragend'></board-column>
     </div>
   </div>
 </template>
@@ -292,16 +285,6 @@
     max-width: 50px;
     margin-right: 10px;
   }
-  .done {
-    text-decoration: line-through;
-    color: #888;
-  }
-  
-  
-  .trash-drop:-moz-drag-over {
-    border: 2px solid red;
-  }
- 
   .remove-item {
     float: right;
     color: #a45;
@@ -323,8 +306,5 @@
   .board {
     display: flex;
   }
- 
- 
-  
- 
   </style>
+  

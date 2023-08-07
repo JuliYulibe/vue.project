@@ -1,0 +1,73 @@
+<script>
+export default {
+    name: "Login",
+    methods: {
+        onSubmit(){
+            //alert('Отправка формы')
+            this.handlerLogin()
+        }
+    },
+    props: ['handlerLogin']
+}
+</script>
+
+<template>
+<div class="container">
+  <div class="form">
+    <h1>Авторизация</h1>
+    <form v-on:submit.prevent="onSubmit">
+        <input placeholder="Введите логин" name="login" class='login' type="text" />
+        <input placeholder="Введите пароль" name="passord" class='password' type="password" />
+        <input type="submit" class='enter' value='Войти' />
+    </form>
+  </div>
+ </div>
+</template>
+
+<style scoped>
+.container {
+    background-color: rgba(255,255,255, 0.6);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form {
+    background-color: rgba(000,000,000, 0.8);
+    width: 600px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.form h1{
+    text-align: center;
+    width: 100%;
+    color: white;
+}
+form {
+    padding: 55px;
+    background: white;
+    text-align: center;
+}
+
+input {
+    width: 80%;
+    height: 50px;
+    margin: 15px;
+}
+
+.login{
+
+}
+
+.password{
+
+}
+
+.enter{
+
+}
+</style>
